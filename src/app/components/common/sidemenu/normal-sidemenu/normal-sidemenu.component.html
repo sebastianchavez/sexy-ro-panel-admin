@@ -1,0 +1,28 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-sidebar" style="width: auto; height: 100%;">
+    <div class="text-center">
+        <a *ngIf="state" style="text-decoration: none;" class="text-white" routerLink="/">Admin</a>
+        <img *ngIf="!state" src="assets/icons/globo.png" style="width: 25px; height: 25px;" alt="">
+    </div>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li *ngFor="let m of menu; let i = index" class="nav-item">
+            <a *ngIf="!m.hasSubmenu" [routerLink]="m.route" class="nav-link text-white" aria-current="page" [ngClass]="{'item-selected' : selectedMenu == m.route}">
+                <i [class]="m.icon + ' me-2'" aria-hidden="true"></i>
+                {{state ? m.text : ''}}
+            </a>
+            <a *ngIf="m.hasSubmenu" class="nav-link text-white" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapseExample' + i" aria-expanded="false" aria-controls="collapseExample" >
+                <i [class]="m.icon + ' me-2'" aria-hidden="true"></i>
+                {{state ? m.text : ''}}
+            </a>
+            <div *ngIf="m.hasSubmenu && state" class="collapse submenu" [id]="'collapseExample' + i">
+                <div *ngFor="let smenu of m.submenu">
+                    <a [routerLink]="smenu.route" class="nav-link text-white" aria-current="page" [ngClass]="{'item-selected' : selectedMenu == smenu.route}">
+                        <i [class]="smenu.icon + ' me-2'" aria-hidden="true"></i>
+                        {{smenu.text}}
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

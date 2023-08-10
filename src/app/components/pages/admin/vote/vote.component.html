@@ -1,0 +1,148 @@
+<div class="container">
+    <div class="card card-body">
+        <div class="row p-4">
+            <div class="col-md-3">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-md-3">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-body mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" (click)="openModal(templateNew)">
+                    Agregar encuesta
+                </button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <select class="form-control" (change)="chageLimit()" [(ngModel)]="filter.limit">
+                    <option *ngFor="let l of limit" [value]="l">{{l > 0 ? l : 'Todos'}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div style="overflow: auto;">
+                <div class="col-md-12">
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>Ecnuesta</th>
+                                <th>Fecha inicio</th>
+                                <th>Fecha fin</th>
+                                <th>Server</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let q of questions; let i = index">
+                                <td>
+                                    {{q.question}}
+                                </td>
+                                <td>
+                                    {{q.startDate}}
+                                </td>
+                                <td>
+                                    {{q.endDate}}
+                                </td>
+                                <td>
+                                    {{q.idServer.name}}
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Alternativas"
+                                        (click)="openModal(templateView, q)">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button *ngIf="user.role == 1" class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
+                                        (click)="openModal(templateNew, q)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+                                    <button *ngIf="user.role == 1" class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
+                                        (click)="deleteQuestio(q, i)">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #templateNew>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{question!.idQuestion ? 'Actualizar' : 'Agregar'}} Encuesta</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group mt-3">
+            <label for="">Pregunta</label>
+            <input type="text" class="form-control" [(ngModel)]="question!.question">
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Desde</label>
+            <input type="date" class="form-control" [(ngModel)]="question!.startDate">
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Hasta</label>
+            <input type="date" class="form-control" [(ngModel)]="question!.endDate">
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Server</label>
+            <select class="form-control" [(ngModel)]="question!.idServer">
+                <option *ngFor="let t of servers" [value]="t.value">{{t.text}}</option>
+            </select>
+        </div>
+        <div class="form-group mt-3">
+            <label for="">Alternativa</label>
+            <input type="text" class="form-control" placeholder="Alternativa" [(ngModel)]="alternative.alternative">
+            <input type="text" class="form-control mt-3" placeholder="Valor" [(ngModel)]="alternative.value">
+            <div class="d-grid gap-2 mb-5 mt-3">
+                <button class="btn btn-primary" (click)="addAlternative()">
+                    Agregar
+                </button>
+            </div>
+        <div class="form-group">
+            <label for="">Alternativas</label>
+            <div *ngFor="let a of question.alternatives">
+                {{a.alternative}}
+                <br>
+            </div>
+        </div>
+        </div>
+        <div class="d-grid gap-2 mb-3 mt-3">
+        <button type="button" class="btn btn-success" (click)="saveQuestion()">{{question!.idQuestion ? 'Actualizar' : 'Agregar'}} encuesta</button>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #templateView>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Alternativas</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+  
+    </div>
+</ng-template>

@@ -1,0 +1,12 @@
+<div class="container-admin">
+    <div class="container-menu">
+        <app-sidemenu [state]="stateSidemenu"></app-sidemenu>
+        <div class="nav-menu">
+            <app-navbar [stateSidemenu]="stateSidemenu" (clickStateSidemenu)="changeStateSidemenu($event)"></app-navbar>
+        </div>
+        <div class="container-page" [ngClass]="{'container-page-full': !stateSidemenu }">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+
+</div>

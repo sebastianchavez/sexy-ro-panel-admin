@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-primary" (click)="openModal(template)">
+                    Nueva versión
+                </button>
+            </div>
+            <div class="col-md-3 ms-auto">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr style="text-align: center;">
+                            <th>Versión</th>
+                            <th>Archivos</th>
+                            <th>Fecha</th>
+                            <th>Actualización forzada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of clients" style="text-align: center;">
+                            <td>{{c.version}}</td>
+                            <td>{{c.clientFiles.length}}</td>
+                            <td>{{c.createdAt | date:'dd-MM-yyyy'}}</td>
+                            <td style="display: flex; justify-content: center;">
+                                <select style="max-width: 8rem;" class="form-control" [(ngModel)]="c.forceUpdate"
+                                    (change)="changeForceUpdate(c)">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Nueva versión</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="newClientForm" (ngSubmit)="saveClient(newClientForm.value)">
+            <div class="mt-3">
+                <input type="text" formControlName="version" class="form-control" placeholder="versión"
+                    [ngClass]="{'is-invalid': submitted && f['version'].errors }">
+                <div *ngIf="submitted && f['version'].errors" class="invalid-feedback">
+                    <div *ngIf="f['version'].errors['required']">
+                        Versión es requerida
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <textarea formControlName="description" class="form-control" cols="30" rows="3"
+                    placeholder="Descripción"></textarea>
+            </div>
+            <div class="mt-3">
+                <div class="row p-2">
+                    <div class="mt-3"> 
+                        <label for="">Version archivo</label>
+                        <input type="number" class="form-control" id="versionFile">
+                    </div>
+                    <input type="file" id="file" (change)="onSelectFile($event)" style="display: none"
+                        class="text-center center-block file-upload" #fileInput />
+                    <button type="button" class="btn-add btn btn-outline-primary" (click)="updateFile()"
+                        tooltip="Agregar archivo" placement="right">
+                        +
+                    </button>
+                    <div *ngFor="let f of files; let i = index" class="file" [tooltip]="f.name" placement="right">
+                        <div (click)="deleteFile(i)" class="delete">X</div>
+                        <i class="fa fa-file" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Actualización" id="txtUpdate">
+                    <button class="btn btn-secondary" type="button" (click)="addUpdate()">
+                        +
+                    </button>
+                </div>
+            </div>
+            <div class="mt-3">
+                <ul>
+                    <li *ngFor="let u of updates; let i = index">
+                        <input [id]="'txtUpdate_'+i" type="text" class="form-control form-control-plaintext"
+                            [value]="u.description" (blur)="changeUpdate(i)">
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-3">
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-block btn-success">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-template>

@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="estado">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="ip">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" placeholder="mac">
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-success">
+                    Buscar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card card-body mt-5">
+        <table class="table table-hover mt-3">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>ip</th>
+                    <th>mac</th>
+                    <th>SO</th>
+                    <th>SocketId</th>
+                    <th>Tipo de usuario</th>
+                    <th style="max-width: 4rem;">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let d of devices">
+                    <td >
+                        <label class="text-status" [ngClass]="{'is-connected': d.is_connected}" for="">{{d.is_connected ? 'Conectado' : 'Desconectado'}}</label>
+                    </td>
+                    <td>{{d.ip}}</td>
+                    <td>{{d.mac}}</td>
+                    <td>{{d.os}}</td>
+                    <td>{{d.socketId}}</td>
+                    <td>{{d.typeUser}}</td>
+                    <td>
+                        <button class="btn btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Ver" (click)="openModal(template)">
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Ver procesos</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</ng-template>

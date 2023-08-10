@@ -1,0 +1,7 @@
+<div class="side-menu" [ngClass]="{'not-visible': !state}">
+    <app-normal-sidemenu [state]="state" [menu]="menu" [selectedMenu]="selectedMenu"></app-normal-sidemenu>
+</div>
+<div class="responsive-side-menu" [ngClass]="{'not-visible-responsive-menu': state}">
+    <app-responsive-sidemenu (changeState)="changeStateSidemenu($event)" [menu]="menu" [state]="state" [selectedMenu]="selectedMenu">
+    </app-responsive-sidemenu>
+</div>

@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body p-4">
+                <div class="row">
+                    <div class="col-md-3 mt-3">
+                        <input type="text" class="form-control" placeholder="Tipo de validación" [(ngModel)]="filter.typeValidation">
+                    </div>
+                    <!-- <div class="col-md-3 mt-3">
+                        <ng-select [(ngModel)]="filter.typeValidation" [multiple]="true">
+                        <ng-option *ngFor="let t of typesValidations" [value]="t">{{t}}</ng-option>
+                     </ng-select>
+                    </div> -->
+                    <div class="col-md-3 mt-3">
+                        <input type="text" class="form-control" placeholder="valor" [(ngModel)]="filter.value">
+                    </div>
+                    <div class="col-md-3 mt-3">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" (click)="search()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="card card-body mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success" (click)="openModal(templateNew)">Agregar</button>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <select class="form-control" (change)="chageLimit()" [(ngModel)]="filter.limit">
+                    <option *ngFor="let l of limit" [value]="l">{{l > 0 ? l : 'Todos'}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div style="overflow: auto;">
+                <div class="col-md-12">
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>Tipo de validación</th>
+                                <th>Valor</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of processLocks">
+                                <td>{{p.typeValidation}}</td>
+                                <td>{{p.value}}</td>
+                                <td>
+                                    <button class="btn btn-outline-dark m-1" tooltip="Detalle"
+                                        (click)="openModal(templateView, p)">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-outline-dark m-1" tooltip="Editar"
+                                        (click)="openModal(templateUpdate, p)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-outline-dark m-1" tooltip="Editar"
+                                        (click)="deleteProcess(p)">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-xs-12 col-12">
+                            <pagination [totalItems]="bigTotalItems" [itemsPerPage]="itemPerPage" [rotate]="true"
+                                [(ngModel)]="filter.page" [maxSize]="10" (pageChanged)="pageChanged($event)">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateNew>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar proceso</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="p-3">
+                <label for="">Tipo de validación</label>
+                <div class="mb-3">
+                <ng-select [(ngModel)]="newProcessLock.typeValidation" [multiple]="true">
+                <ng-option *ngFor="let t of typesValidations" [value]="t.value">{{t.text}}</ng-option>
+             </ng-select>
+            </div>
+            <div class="mb-3">
+                <label for="">Valor</label>
+                <input type="text" class="form-control" [(ngModel)]="newProcessLock.value">
+            </div>
+            <div class="mb-3">
+                <label for="">Rango</label>
+                <input type="text" class="form-control" [(ngModel)]="newProcessLock.range">
+            </div>
+            <div class="d-grid gap-2 mb-3">
+                <button class="btn btn-success" (click)="saveProcessLock()">Agregar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #templateView>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Proceso</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <b>Tipo de validación:</b>{{selectedProcessLock!.typeValidation}} <br>
+        <b>Valor:</b>{{selectedProcessLock!.value}} <br>
+    </div>
+</ng-template>
+
+<ng-template #templateUpdate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Actualizar</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="">Tipo de validación</label>
+            <ng-select [(ngModel)]="selectedProcessLock!.typeValidation" [multiple]="true">
+            <ng-option *ngFor="let t of typesValidations" [value]="t.value">{{t.text}}</ng-option>
+         </ng-select>
+        </div>
+        <div class="mb-3">
+            <label for="">Valor</label>
+            <input type="text" class="form-control" placeholder="Valor" [(ngModel)]="selectedProcessLock!.value">
+        </div>
+        <div class="mb-3">
+            <label for="">Rango</label>
+            <input type="text" class="form-control"  [(ngModel)]="selectedProcessLock!.range">
+        </div>
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-success" type="button" (click)="updateProcessLock()" [disabled]="btnLoad">Actualizar</button>
+        </div>
+    </div>
+</ng-template>

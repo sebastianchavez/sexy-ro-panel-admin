@@ -1,0 +1,30 @@
+<div class="p-3 text-white bg-sidebar">
+    <div class="text-left">
+        <button class="btn text-white" (click)="changeStateSidemenu()">
+            <i class="fa fa-bars me-2" aria-hidden="true"></i>
+        </button>
+        <a style="text-decoration: none;" class="text-white" routerLink="/">Admin</a>
+    </div>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li *ngFor="let m of menu; let i = index" class="nav-item">
+            <a *ngIf="!m.hasSubmenu" [routerLink]="m.route" class="nav-link text-white" aria-current="page" [ngClass]="{'item-selected' : selectedMenu == m.route}">
+                <i [class]="m.icon + ' me-2'" aria-hidden="true"></i>
+                {{m.text}}
+            </a>
+            <a *ngIf="m.hasSubmenu" class="nav-link text-white" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#collapseExample' + i" aria-expanded="false" aria-controls="collapseExample" >
+                <i [class]="m.icon + ' me-2'" aria-hidden="true"></i>
+                {{!state ? m.text : ''}}
+            </a>
+            <div *ngIf="m.hasSubmenu && !state" class="collapse submenu" [id]="'collapseExample' + i">
+                <div *ngFor="let smenu of m.submenu">
+                    <a [routerLink]="smenu.route" class="nav-link text-white" aria-current="page" [ngClass]="{'item-selected' : selectedMenu == smenu.route}">
+                        <i [class]="smenu.icon + ' me-2'" aria-hidden="true"></i>
+                        {{smenu.text}}
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

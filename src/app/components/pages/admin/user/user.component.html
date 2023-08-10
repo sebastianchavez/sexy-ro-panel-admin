@@ -1,0 +1,179 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body p-4">
+                <div class="row">
+                    <div class="col-md-3 mt-2">
+                        <input type="text" class="form-control" placeholder="Email" [(ngModel)]="filter.email">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="filter.name">
+                    </div>
+                    <div class="col-md-3 mt-2" *ngIf="user.role == 1">
+                        <input type="text" class="form-control" placeholder="IP" [(ngModel)]="filter.ip">
+                    </div>
+                    <div class="col-md-3 mt-2">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success" (click)="search()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card card-body mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <select class="form-control" (change)="chageLimit()" [(ngModel)]="filter.limit">
+                    <option *ngFor="let l of limit" [value]="l">{{l > 0 ? l : 'Todos'}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div style="overflow: auto;">
+                <div class="col-md-12">
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Nombre</th>
+                                <th>LVL</th>
+                                <th>Ubicación</th>
+                                <th>Estado</th>
+                                <th>Char ID</th>
+                                <th>Account ID</th>
+                                <th *ngIf="user.role == 1">IP</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let c of chars">
+                                <td>{{c.email}}</td>
+                                <td>{{c.name}}</td>
+                                <td>{{c.base_level+ '/' + c.job_level}}</td>
+                                <td>{{c.last_map + ',' + c.last_x + ',' + c.last_y}}</td>
+                                <td>Estado</td>
+                                <td>{{c.char_id}}</td>
+                                <td>{{c.account_id}}</td>
+                                <td *ngIf="user.role == 1">{{c.last_ip}}</td>
+                                <td>
+                                    <button class="btn btn-outline-dark m-1" tooltip="Detalle"
+                                        (click)="openModal(templateView, c)">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-outline-dark m-1" tooltip="Editar"
+                                        (click)="openModal(templateUpdate, c)">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-xs-12 col-12">
+                            <pagination [totalItems]="bigTotalItems" [itemsPerPage]="itemPerPage" [rotate]="true"
+                                [(ngModel)]="filter.page" [maxSize]="10" (pageChanged)="pageChanged($event)">
+                            </pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateView>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Nombre usuario</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</ng-template>
+
+<ng-template #templateUpdate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">{{selectedChar.name}}</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <label class="title-lock">Bloqueo de BG</label>
+                <label class="switch">
+                    <input type="checkbox" [(ngModel)]="selectedChar.is_bg_lock">
+                    <span class="slider round"></span>
+                </label>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label" for="txtBg">Días de bloqueo de BG</label>
+                    <input type="number" [disabled]="lockUpd.allDaysBg" class="form-control" [(ngModel)]="lockUpd.daysBg" id="txtBg" min="0"
+                        [ngClass]="{ 'is-invalid': submitted && !lockUpd.allDaysBg && lockUpd.daysBg <= 0 && selectedChar.is_bg_lock }">
+                    <div *ngIf="submitted && !lockUpd.allDaysBg && lockUpd.daysBg <= 0 && selectedChar.is_bg_lock" class="invalid-feedback">
+                        <div>Debe ser mínimo 1</div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input [(ngModel)]="lockUpd.allDaysBg" type="checkbox" class="form-check-input" id="checkAllDaysBg">
+                    <label class="form-check-label" for="checkAllDaysBg">Indefinido</label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="title-lock">Bloqueo de WOE</label>
+                <label class="switch">
+                    <input type="checkbox" [(ngModel)]="selectedChar.is_woe_lock">
+                    <span class="slider round"></span>
+                </label>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label" for="txtWoe">Días de bloqueo de WOE</label>
+                    <input type="number" [disabled]="lockUpd.allDaysWoe" class="form-control" [(ngModel)]="lockUpd.daysWoe" id="txtWoe" min="0"
+                        [ngClass]="{ 'is-invalid': submitted && !lockUpd.allDaysWoe && lockUpd.daysWoe <= 0 && selectedChar.is_woe_lock }">
+                    <div *ngIf="submitted && !lockUpd.allDaysWoe && lockUpd.daysWoe <= 0 && selectedChar.is_woe_lock" class="invalid-feedback">
+                        <div>Debe ser mínimo 1</div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input [(ngModel)]="lockUpd.allDaysWoe" type="checkbox" class="form-check-input" id="checkAllDaysWoe">
+                    <label class="form-check-label" for="checkAllDaysWoe">Indefinido</label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="title-lock">Ban</label>
+                <label class="switch">
+                    <input type="checkbox" [(ngModel)]="selectedChar.is_ban">
+                    <span class="slider round"></span>
+                </label>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label" for="txtdays">Días de ban</label>
+                    <input type="number" [disabled]="lockUpd.allDaysBan" class="form-control" [(ngModel)]="lockUpd.daysBan" id="txtdays" min="0" 
+                        [ngClass]="{ 'is-invalid': submitted && !lockUpd.allDaysBan && lockUpd.daysBan <= 0 && selectedChar.is_ban }">
+                    <div *ngIf="submitted && !lockUpd.allDaysBan && lockUpd.daysBan <= 0 && selectedChar.is_ban" class="invalid-feedback">
+                        <div>Debe ser mínimo 1</div>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input [(ngModel)]="lockUpd.allDaysBan" type="checkbox" class="form-check-input" id="checkAllDaysBan">
+                    <label class="form-check-label" for="checkAllDaysBan">Indefinido</label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="d-grid gap-2 mt-4">
+            <button class="btn btn-success" type="button" (click)="updateLock()" [disabled]="btnLoad">Actualizar</button>
+        </div>
+    </div>
+</ng-template>

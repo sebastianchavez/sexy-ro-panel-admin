@@ -1,0 +1,35 @@
+.container-menu {
+    display: flex;
+    height: 100vh;
+}
+
+.nav-menu {
+    width: 100%;
+}
+
+.container-page {
+    display: block;
+    position: absolute;
+    height: 90vh;
+    margin-top: 10vh;
+    width: 75%;
+    margin-left: 18em;
+    transition: all .5s ease;
+    overflow: auto;
+}
+
+.container-page-full {
+    margin-left: 5em;
+    transition: all .5s ease;
+    width: 93%;
+}
+
+@media (max-width: 767px) {
+    .container-page {
+        margin-top: 15vh;
+        margin-left: 0em;
+        transition: all .5s ease;
+        width: 100%;
+        overflow-y: auto;
+    }
+}

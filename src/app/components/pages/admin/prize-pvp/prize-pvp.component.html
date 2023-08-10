@@ -1,0 +1,71 @@
+<div class="container pb-4">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <button *ngIf="user.role == 1" class="btn btn-success" (click)="openModal(templateAdd)">
+                    Nuevo premio
+                </button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mayor que</th>
+                            <th>Menor que</th>
+                            <th>Item</th>
+                            <th>Cantidad</th>
+                            <th *ngIf="user.role == 1">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of prizes">
+                            <td> {{p.morethan}} </td>
+                            <td> {{p.lessthan}} </td>
+                            <td> {{p.name_english}} </td>
+                            <td> {{p.quantity}} </td>
+                            <td *ngIf="user.role == 1" style="width: 5rem;">
+                                <button class="btn btn-outline-dark m-1" tooltip="Eliminar premio" (click)="deletePrize(p)">
+                                    x
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateAdd>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar premio</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="">Item</label>
+            <ng-select [(ngModel)]="selectedItem.itemId" (keyup)="searchItems($event)" [notFoundText]="'Item no encontrado'" (ngModelChange)="selectItem($event)">
+                <ng-option *ngFor="let i of items" [value]="i.id">{{i.name_english}}</ng-option>
+            </ng-select>
+        </div>
+        <div class="mb-3 quantity">
+            <label for="">Cantidad</label>
+            <input type="number" min="0" class="form-control" [(ngModel)]="selectedItem.quantity">
+        </div>
+        <div class="mb-3 quantity">
+            <label for="">Ranking mayor que</label>
+            <input type="number" min="0" class="form-control" [(ngModel)]="selectedItem.morethan">
+        </div>
+        <div class="mb-3 quantity">
+            <label for="">Ranking menor que</label>
+            <input type="number" min="0" class="form-control" [(ngModel)]="selectedItem.lessthan">
+        </div>
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-success" (click)="savePrize()">Agregar premio</button>
+        </div>
+    </div>
+</ng-template>

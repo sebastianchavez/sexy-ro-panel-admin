@@ -1,0 +1,39 @@
+.nav-link:hover {
+    background-color: #9FA2B4;
+    opacity: .8;
+    border-radius: 4px;
+}
+
+.bg-sidebar {
+    background-color: #363740;
+}
+
+.item-selected {
+    background-color: #9FA2B4;
+    border-radius: 4px;
+}
+
+.view-item{
+    height: 30px;
+    width: 30px;
+    label{
+        display: none;
+    }
+}
+
+.view-item:hover{
+    z-index: 9;
+    background-color: #363740 !important;
+    width: 300px;
+    opacity: 1;
+    label {
+        display: contents;
+    }
+}
+
+
+accordion-group {
+    .card {
+        background-color: transparent !important;
+    }
+}

@@ -1,0 +1,43 @@
+<nav class="navbar navbar-light bg-light" style="width: 100%;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <a class="navbar-brand ps-2">
+                    <button class="btn btn-light" (click)="changeStateSidemenu()">
+                        <i class="fa fa-bars me-2" aria-hidden="true"></i>
+                    </button>
+                    {{title}}
+                </a>
+            </div>
+        </div>
+        <div class="d-flex">
+            <ul class="nav">
+                <li class="nav-item btn-sidemenu">
+                    <a href="#" class="nav-link link-dark px-2 me-1">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li class="nav-item btn-sidemenu"><a href="#" class="nav-link link-dark px-2 me-3">Nombre de usuario</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown px-2 p-2">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"
+                                class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="left: -7em;">
+                            <li><a class="dropdown-item" href="#">Mi perfil.</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button> -->
+        </div>
+    </div>
+</nav>

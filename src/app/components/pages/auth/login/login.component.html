@@ -1,0 +1,45 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mt-4 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Autenticación</h4>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                                [ngClass]="{ 'is-invalid': submitted && f['email'].errors  }">
+                            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                <div *ngIf="f['email'].errors && f['email'].errors['required']">Email es requerido</div>
+                                <div *ngIf="f['email'].errors && f['email'].errors['email']">Debe ingresar un email válido</div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </span>
+                            <input type="password" class="form-control" placeholder="Contraseña"
+                                formControlName="password"
+                                [ngClass]="{ 'is-invalid': submitted && f['password'].errors  }">
+                            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                <div *ngIf="f['password'].errors && f['password'].errors['required']">Contraseña es requerida
+                                </div>
+                                <div *ngIf="f['password'].errors && f['password'].errors['minlength']">Debe tener un mínimo de 6
+                                    caracteres</div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-dark">
+                                Ingresar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

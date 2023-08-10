@@ -1,0 +1,33 @@
+.file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 3rem;
+    width: 3rem;
+    margin: 5px;
+}
+
+.btn-add {
+    border-radius: 5px;
+    height: 3rem;
+    width: 3rem;
+    margin: 5px;
+}
+
+.delete {
+    background-color: red;
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    align-items: center;
+    margin: 0 0 50px 50px;
+    cursor: pointer;
+    font-size: 10px;
+    z-index: 3;
+}

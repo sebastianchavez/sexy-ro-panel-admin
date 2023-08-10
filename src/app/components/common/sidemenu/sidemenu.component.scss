@@ -1,0 +1,46 @@
+.side-menu {
+    transition: all .5s ease;
+    width: 15em;
+    height: 100%;
+}
+
+.responsive-side-menu {
+    background-color: #363740;
+    display: none;
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    width: 65%;
+    height: 100%;
+    overflow: auto;
+    // background-color: rgb(0, 0, 0);
+    // background-color: rgba(0, 0, 0, 0.4);
+    -webkit-animation-name: fadeIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+
+.not-visible {
+    transition: all .5s ease;
+    width: 5em;
+}
+
+.not-visible-responsive-menu {
+    transition: all .5s ease;
+    width: 0px;
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .side-menu {
+        display: none;
+        width: 0px;
+    }
+
+    .responsive-side-menu {
+        transition: all .5s ease;
+        display: block;
+    }
+}

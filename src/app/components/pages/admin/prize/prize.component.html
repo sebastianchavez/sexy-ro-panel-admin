@@ -1,0 +1,65 @@
+<div class="container pb-4">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Día</th>
+                            <th>Premios</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of prizes">
+                            <td>
+                                {{p.day}}
+                            </td>
+                            <td>
+                                <div class="container-items">
+                                    <div *ngFor="let item of p.prize; let i2 = index" class="item">
+                                        <span class="badge rounded-pill bg-dark m-1 item">
+                                            <label for="">
+                                                {{item.quantity}} - {{item.name_english}} 
+                                            </label>
+                                            <div *ngIf="user.role == 1" class="delete-item pointer" (click)="deletePrize(p.day, i2)">x</div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="width: 5rem;" *ngIf="user.role == 1">
+                                <button class="btn btn-outline-dark m-1" tooltip="Agregar premio" (click)="openModal(templateAdd, p.day)">
+                                    +
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #templateAdd>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Agregar premio</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="">Item</label>
+            <ng-select [(ngModel)]="selectedItem.itemId" (keyup)="searchItems($event)" [notFoundText]="'Item no encontrado'" (ngModelChange)="selectItem($event)">
+            <ng-option *ngFor="let i of items" [value]="i.id">{{i.name_english}}</ng-option>
+         </ng-select>
+        </div>
+        <div class="mb-3 quantity">
+            <label for="">Cantidad</label>
+           <input type="number" min="0" class="form-control" [(ngModel)]="selectedItem.quantity">
+        </div>
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-success" (click)="savePrize()">Agregar premio</button>
+        </div>
+    </div>
+</ng-template>

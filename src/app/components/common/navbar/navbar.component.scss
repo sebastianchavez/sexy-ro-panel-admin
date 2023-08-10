@@ -1,0 +1,7 @@
+.btn-sidemenu {}
+
+@media (max-width: 500px) {
+    .btn-sidemenu {
+        display: none;
+    }
+}

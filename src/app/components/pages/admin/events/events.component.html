@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="d-grid gap-2">
-                    <button *ngIf="user.role == 1" class="btn btn-success" (click)="openModal(templateNew)">Agregar</button>
+                    <button class="btn btn-success" (click)="openModal(templateNew)">Agregar</button>
                 </div>
             </div>
         </div>
@@ -54,11 +54,11 @@
                                         (click)="openModal(templateView, e)">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </button>
-                                    <button *ngIf="user.role == 1" class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
+                                    <button  class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"
                                         (click)="openModal(templateNew, e)">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </button>
-                                    <button *ngIf="user.role == 1" class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
+                                    <button  class="btn btn-outline-dark m-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
                                         (click)="deleteEvent(e)">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>

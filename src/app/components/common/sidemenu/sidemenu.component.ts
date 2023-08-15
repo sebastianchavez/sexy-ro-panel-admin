@@ -20,55 +20,55 @@ export class SidemenuComponent implements OnInit {
       route: '/user',
       icon: 'fa fa-user'
     },
-    {
-      text: 'Noticias',
-      icon: 'fa fa-newspaper-o',
-      route: '/news'
-    },
+    // {
+    //   text: 'Noticias',
+    //   icon: 'fa fa-newspaper-o',
+    //   route: '/news'
+    // },
     {
       text: 'Eventos',
       icon: 'fa fa-calendar',
       route: '/events'
     },
-    {
-      text: 'Encuestas',
-      icon: 'fa fa-thumbs-up',
-      route: '/vote'
-    },
-    {
-      text: 'Cliente',
-      hasSubmenu:  true,
-      icon: 'fa fa-unlock',
-      submenu: [
-        {
-          text: 'Actualización Cliente',
-          route: '/client'
-        },
-        {
-          text: 'Bloqueo Procesos',
-          route:'/process-lock'
-        },
-        {
-          text: 'Dispositivos',
-          route: '/devices',
-        },
-      ],
-    },
-    {
-      text: 'Premios',
-      hasSubmenu: true,
-      icon: 'fa fa-trophy',
-      submenu: [
-        {
-          text: 'Por conexión',
-          route: '/prizes'
-        },
-        {
-          text: 'Ranking Pvp',
-          route: '/prizes-pvp'
-        }
-      ]
-    }
+    // {
+    //   text: 'Encuestas',
+    //   icon: 'fa fa-thumbs-up',
+    //   route: '/vote'
+    // },
+    // {
+    //   text: 'Cliente',
+    //   hasSubmenu:  true,
+    //   icon: 'fa fa-unlock',
+    //   submenu: [
+    //     {
+    //       text: 'Actualización Cliente',
+    //       route: '/client'
+    //     },
+    //     {
+    //       text: 'Bloqueo Procesos',
+    //       route:'/process-lock'
+    //     },
+    //     {
+    //       text: 'Dispositivos',
+    //       route: '/devices',
+    //     },
+    //   ],
+    // },
+    // {
+    //   text: 'Premios',
+    //   hasSubmenu: true,
+    //   icon: 'fa fa-trophy',
+    //   submenu: [
+    //     {
+    //       text: 'Por conexión',
+    //       route: '/prizes'
+    //     },
+    //     {
+    //       text: 'Ranking Pvp',
+    //       route: '/prizes-pvp'
+    //     }
+    //   ]
+    // }
   ];
   user: {
     email: string;

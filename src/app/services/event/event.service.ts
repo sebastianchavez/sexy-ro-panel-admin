@@ -32,6 +32,6 @@ export class EventService {
   }
 
   deleteEvent(id: number): Promise<any> {
-    return this.http.delete(`${this.apiUrl}${this.url1}/${id}`).toPromise()
+    return this.http.delete(`${this.apiUrl}${this.url4}/${id}`).toPromise()
   }
 }

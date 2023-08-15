@@ -5,8 +5,6 @@
 export const environment = {
   production: false,
   api: 'http://localhost:3000',
-  socketIoUrl: 'http://127.0.0.1:3002/',
-
   debug: true
 };
 

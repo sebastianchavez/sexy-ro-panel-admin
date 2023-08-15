@@ -14,7 +14,6 @@ export class AdminComponent implements OnInit {
   stateSidemenu: boolean = false;
   constructor(
     private menuService: MenuService,
-    private deviceService: DeviceService,
     private logger: LoggerService
   ) { }
 
@@ -22,18 +21,6 @@ export class AdminComponent implements OnInit {
     this.menuService.getStateSidemenu().subscribe((res: boolean) => {
       this.stateSidemenu = res
     })
-    this.connectSocket()
-  }
-
-
-  async connectSocket(){
-    try {
-      const response = await this.deviceService.connectedSocket()
-      this.logger.log(this.idLog, this.connectSocket.name, {info: 'Success', response})
-    } catch (error) {
-      this.logger.error(this.idLog, this.connectSocket.name, {info: 'Error', error})
-    }
-
   }
 
   changeStateSidemenu(ev: boolean) {

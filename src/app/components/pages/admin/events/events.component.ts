@@ -21,8 +21,8 @@ export class EventsComponent implements OnInit {
     text: string;
   }[] =  [
     {
-      value: 'automatic',
-      text: 'Automatico'
+      value: 'woe',
+      text: 'WOE'
     }
   ]
   modalRef?: BsModalRef;
@@ -42,7 +42,7 @@ export class EventsComponent implements OnInit {
     endHour: 2300,
     startHour: 2100,
     title: '',
-    type: 'automatic'
+    type: 'woe'
   };
   events: IEvent[] = []
   itemPerPage: number = 10;
@@ -82,7 +82,7 @@ export class EventsComponent implements OnInit {
     this.event = {
       title: '',
       description: '',
-      type: 'automatic',
+      type: 'woe',
       days: 1234567,
       startHour: 2100,
       endHour: 2200,
@@ -97,19 +97,9 @@ export class EventsComponent implements OnInit {
 
   async getEvents(){
     try {
-      let query = '';
-      let count = 0;
-      const filter: any = this.filter;
-      for await (let obj of  Object.keys(this.filter)) {
-        if(filter[obj] && filter[obj] != ''){
-          if(count == 0){
-            query += `?${obj}=${filter[obj]}`
-          } else {
-            query += `&${obj}=${filter[obj]}`
-          }
-          count++
-        }
-      }
+      const { limit, page, title, type} = this.filter;
+      
+      let query = `?limit=${limit}&page=${page}&title=${title}&type=${type}`;
       const response = await this.eventService.getEvents(query)
       this.bigTotalItems = response.totalRegister
       this.itemPerPage = this.filter.limit
@@ -130,6 +120,8 @@ export class EventsComponent implements OnInit {
       if(confirm.value){
         const response = await this.eventService.deleteEvent(event.idEvent!)
         this.logger.log(this.idLog, this.deleteEvent.name, {info: 'Error', response})
+        this.getEvents()
+        this.alertService.toast('Evento eliminado')
       }
     } catch (error) {
       this.logger.error(this.idLog, this.deleteEvent.name, {info: 'Error', error})

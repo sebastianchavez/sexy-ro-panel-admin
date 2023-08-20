@@ -16,15 +16,15 @@ export class SidemenuComponent implements OnInit {
   
   allMenu: IMenu[] = [
     {
+      text: 'Administradores',
+      icon: 'fa fa-newspaper-o',
+      route: '/admins'
+    },
+    {
       text: 'Jugadores',
       route: '/user',
       icon: 'fa fa-user'
     },
-    // {
-    //   text: 'Noticias',
-    //   icon: 'fa fa-newspaper-o',
-    //   route: '/news'
-    // },
     {
       text: 'Eventos',
       icon: 'fa fa-calendar',

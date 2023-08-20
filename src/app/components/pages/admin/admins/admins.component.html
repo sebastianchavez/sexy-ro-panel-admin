@@ -1,0 +1,74 @@
+<div class="container">
+
+    <div class="card card-body mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <button class="btn btn-success" (click)="openModal(templateAdmin)">
+                    Nuevo admin
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div style="overflow: auto;">
+                <div class="col-md-12">
+                    <table class="table table-hover mt-3">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Email</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let a of admins; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{a.email}}</td>
+                                <td>{{a.isAvailable ? 'Habilitado': 'Deshabilitado'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #templateAdmin>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Registrar Administrador</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors  }">
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors && f['email'].errors['required']">Email es requerido</div>
+                    <div *ngIf="f['email'].errors && f['email'].errors['email']">Debe ingresar un email válido</div>
+                </div>
+            </div>
+            <div class="form-group mt-3">
+                <label for="">Contraseña</label>
+                <input type="password" class="form-control" placeholder="Contraseña"
+                formControlName="password"
+                [ngClass]="{ 'is-invalid': submitted && f['password'].errors  }">
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors && f['password'].errors['required']">Contraseña es requerida
+                    </div>
+                    <div *ngIf="f['password'].errors && f['password'].errors['minlength']">Debe tener un mínimo de 6
+                        caracteres</div>
+                </div>
+            </div>
+            <div class="d-grid gap-2 mt-4">
+                <button class="btn btn-dark">
+                    Registrar
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

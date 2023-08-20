@@ -10,10 +10,10 @@ import { environment } from 'src/environments/environment';
 export class EventService {
 
   apiUrl: string = environment.api
-  url1: string = '/api/events/get-events'
-  url2: string = '/api/events/save-event'
-  url3: string = '/api/events/update-event'
-  url4: string = '/api/events/delete-event'
+  url1: string = '/api/admins/get-events'
+  url2: string = '/api/admins/save-event'
+  url3: string = '/api/admins/update-event'
+  url4: string = '/api/admins/delete-event'
 
   constructor(
     private http: HttpClient

@@ -5,4 +5,5 @@ export interface IRequestSaveEvent {
     days: number;
     startHour: number;
     endHour: number;
+    idServer: number
 }

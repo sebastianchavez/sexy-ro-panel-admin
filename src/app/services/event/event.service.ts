@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class EventService {
 
   apiUrl: string = environment.api
+  idServer: number = environment.idServer
   url1: string = '/api/admins/get-events'
   url2: string = '/api/admins/save-event'
   url3: string = '/api/admins/update-event'
@@ -20,7 +21,7 @@ export class EventService {
   ) { }
 
   getEvents(query: string): Promise<any> {
-    return this.http.get(`${this.apiUrl}${this.url1}${query}`).toPromise()
+    return this.http.get(`${this.apiUrl}${this.url1}${query}&idServer=${this.idServer}`).toPromise()
   }
 
   saveEvent(request: IRequestSaveEvent): Promise<any> {

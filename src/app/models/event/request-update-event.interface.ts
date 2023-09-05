@@ -6,4 +6,5 @@ export interface IRequestUpdateEvent {
     days: number;
     startHour: number;
     endHour: number;
+    idServer: number;
 }

@@ -7,6 +7,7 @@ import { EventService } from 'src/app/services/event/event.service';
 import { IRequestSaveEvent } from 'src/app/models/event/request-save-event.interface';
 import { IRequestUpdateEvent } from 'src/app/models/event/request-update-event.interface';
 import { MenuService } from 'src/app/services/menu/menu.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-events',
@@ -58,6 +59,7 @@ export class EventsComponent implements OnInit {
     email: '',
     role: 0
   }
+  idServer: number = environment.idServer
 
   constructor(
     private modalService: BsModalService,
@@ -144,7 +146,8 @@ export class EventsComponent implements OnInit {
           days, 
           startHour, 
           endHour, 
-          idEvent
+          idEvent,
+          idServer: this.idServer
         }
         const response = await this.eventService.updateEvent(request)
         this.logger.log(this.idLog, this.saveEvent.name, {info: 'Success', response})
@@ -156,7 +159,8 @@ export class EventsComponent implements OnInit {
           type,
           days,
           endHour,
-          startHour
+          startHour,
+          idServer: this.idServer
         }
         const response = await this.eventService.saveEvent(request)
         this.logger.log(this.idLog, this.saveEvent.name, {info: 'Success', response})

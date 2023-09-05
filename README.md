@@ -1,27 +1,54 @@
-# PanelAdminAngular
+# Frontend Panel Administración Sexy RO
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.5.
+Proyecto frontend panel de administración, desarrollado con Angular.
+Orientado a administradores de servidores de Ragnarok Online 
 
-## Development server
+## Comenzando 🚀
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
++ [Descargar desde github](https://github.com/sebastianchavez/sexy-ro-panel-admin/tree/release) 
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Pre-requisitos 📋
+Es necesario tener instalado NodeJs, Angular CLI, ademas de contar con un proyecto backend al cual se pueda comunicar para las operaciones del servidor.
 
-## Build
+Para despliegue de aplicación existen diversas opciones por lo que se dejará a gusto de usuario.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+### Instalación 🔧
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Una vez instalado Angular CLI ejecutar comando
 
-## Running end-to-end tests
+```
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Despliegue 📦
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para despliegue de la aplicación para conceptos de pruebas o desarrollo ejecutar comandos
+
+```
+ng serve
+```
+
+Para producción ejecutar
+
+```
+npm run build
+```
+
+el compilado generado dejar en ambiente de producción
+
+## Construido con 🛠️
+
+* [Angular](https://angular.io/) - Framework de desarrollo
+
+## Versionado 📌
+
+Usamos [GIT](https://git-scm.com/) para el versionado [en este repositorio](https://github.com/sebastianchavez/sexy-ro-panel-admin).
+
+
+## Licencia 📄
+
+
+Este proyecto está bajo la Licencia (MIT)
